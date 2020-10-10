@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  (WWPS-GLS-WF-BATCH) Deploys resource for a AWS Batch environment that is 
+  (WWPS-GLS-WF-BATCH) Deploys resource for a AWS Batch environment that is
   suitable for genomics, including default and high-priority JobQueues.
 
 
@@ -128,9 +128,9 @@ Resources:
   GenomicsDefaultComputeEnv:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
-      ComputeEnvironmentName: !Sub 
+      ComputeEnvironmentName: !Sub
        - spot-${StackGuid}
-       - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+       - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
       ServiceRole: !Ref BatchServiceRoleArn
       Type: MANAGED
       State: ENABLED
@@ -153,14 +153,14 @@ Resources:
         Tags:
           Name: !Sub
             - batch-spot-worker-${StackGuid}
-            - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+            - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
 
   GenomicsHighPriorityComputeEnv:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
-      ComputeEnvironmentName: !Sub 
+      ComputeEnvironmentName: !Sub
        - ondemand-${StackGuid}
-       - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+       - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
       ServiceRole: !Ref BatchServiceRoleArn
       Type: MANAGED
       State: ENABLED
@@ -180,14 +180,14 @@ Resources:
         Tags:
           Name: !Sub
             - batch-ondemand-worker-${StackGuid}
-            - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+            - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
 
   GenomicsHighPriorityQueue:
     Type: AWS::Batch::JobQueue
     Properties:
       JobQueueName: !Sub
         - highpriority-${StackGuid}
-        - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+        - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
       Priority: 1000
       State: ENABLED
       ComputeEnvironmentOrder:
@@ -201,7 +201,7 @@ Resources:
     Properties:
       JobQueueName: !Sub
         - default-${StackGuid}
-        - StackGuid: !Select [ 2, !Split [ "/", !Ref "AWS::StackId" ]]
+        - StackGuid: !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]
       Priority: 1
       State: ENABLED
       ComputeEnvironmentOrder:

@@ -99,10 +99,7 @@ Parameters:
     Type: String
     Description: >-
       Root URL for where nested templates are stored
-    Default: https://s3.amazonaws.com/aws-genomics-workflows/templates
-    ConstraintDescription: >-
-      Must be a valid S3 URL
-    AllowedPattern: "https://s3(-[a-z0-9]+)*\\.amazonaws\\.com/[a-z0-9-./]{3,}"
+    Default: https://github.com/SteveMarshallFSP/aws-genomics-workflows/templates
 
 Conditions:
   DataBucketIsNextflowBucket:
@@ -143,7 +140,7 @@ Resources:
       Parameters:
         ContainerName: nextflow
         GitRepoType: GITHUB
-        GitCloneUrlHttp: https://github.com/aws-samples/aws-genomics-workflows.git
+        GitCloneUrlHttp: https://github.com/SteveMarshallFSP/aws-genomics-workflows.git
         ProjectPath: ./src/containers/nextflow
         ProjectBuildSpecFile: ./src/containers/buildspec-nextflow.yml
         CreateBatchJobDefinition: "No"

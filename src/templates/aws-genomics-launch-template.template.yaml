@@ -113,7 +113,7 @@ Resources:
   EC2LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: !Join ["-", [!Ref LaunchTemplateNamePrefix, !Select [2, !Split ["/", !Ref "AWS::StackId" ]]]]
+      LaunchTemplateName: !Join ["-", [!Ref LaunchTemplateNamePrefix, !Select [0, !Split[-, !Select [2, !Split [/, !Ref AWS::StackId ]]]]]]
       LaunchTemplateData:
         TagSpecifications:
           - ResourceType: instance
